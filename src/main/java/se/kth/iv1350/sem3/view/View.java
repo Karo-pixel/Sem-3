@@ -3,15 +3,26 @@ import se.kth.iv1350.sem3.control.Controller;
 import se.kth.iv1350.sem3.model.Bike;
 import se.kth.iv1350.sem3.model.Customer;
 import se.kth.iv1350.sem3.model.RepairOrder;
+import se.kth.iv1350.sem3.model.Receipt;
 
-
+/**
+ * The programs view class.
+ */
 public class View {
     private Controller contr;
 
+    /**
+     * Creates a view.
+     * 
+     * @param contr This is the programs controller.
+     */
     public View(Controller contr) {
         this.contr = contr;
     }
 
+    /**
+     * Starts the program by running a sample repair order scenario.
+     */
     public void start() {
         Bike bike = new Bike("Lexus", "Tiger", "55");
         Customer newCustomer = new Customer("Karo", "karosh@kth.se", "0704345829", bike);
@@ -47,7 +58,8 @@ public class View {
         System.out.println(newRepairOrder);
 
         System.out.println("The receipt: ");
-        System.out.println(contr.getReceipt(newRepairOrder));
+        Receipt receipt = contr.getReceipt(newRepairOrder);
+        System.out.println(receipt);
         
 
     }

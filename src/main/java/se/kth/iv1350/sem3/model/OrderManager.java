@@ -72,5 +72,6 @@ public class OrderManager {
     public void rejectRepairOrder(RepairOrder repairOrder) {
         repairOrder.setState(false);
     }
+    
 
 }

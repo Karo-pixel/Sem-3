@@ -5,6 +5,7 @@ import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
 import se.kth.iv1350.sem3.model.Customer;
 import se.kth.iv1350.sem3.model.OrderManager;
 import se.kth.iv1350.sem3.model.RepairOrder;
+import se.kth.iv1350.sem3.model.Receipt;
 /**
  * The programs Controller that manages calls from the view.
  */
@@ -14,6 +15,14 @@ public class Controller {
     private RepairOrderRegistry repairOrderRegistry;
     private Printer printer;
     
+    /**
+     * Creates a controller.
+     * 
+     * @param manager This is the programs order manager.
+     * @param customerRegistry This is the programs customer registry.
+     * @param repairOrderRegistry This is the programs repair order registry.
+     * @param printer This is the programs printer.
+     */
     public Controller(OrderManager manager, CustomerRegistry customerRegistry, RepairOrderRegistry repairOrderRegistry, Printer printer) {
         this.manager = manager;
         this.customerRegistry = customerRegistry;
@@ -113,7 +122,14 @@ public class Controller {
         manager.rejectRepairOrder(repairOrder);
     }
 
-    public String getReceipt(RepairOrder repairOrder) {
-        return printer.printReceipt(repairOrder);
+    /**
+     * This method gets a receipt.
+     * 
+     * @param repairOrder The repair order that the receipt is based on.
+     * 
+     * @return Returns the receipt.
+     */
+    public Receipt getReceipt(RepairOrder repairOrder) {
+        return printer.getReceipt(repairOrder);
     }
 }

@@ -8,9 +8,15 @@ import se.kth.iv1350.sem3.model.OrderManager;
 import se.kth.iv1350.sem3.view.View;
 
 /**
- * The class main for the program.
+ * The main class of the program.
  */
 public class Main {
+
+    /**
+     * Starts the application.
+     * 
+     * @param args Command line arguments. This program does not use them.
+     */
     public static void main(String[] args) {
         Printer printer = new Printer();
         CustomerRegistry customerRegistry = new CustomerRegistry();

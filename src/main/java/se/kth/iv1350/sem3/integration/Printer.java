@@ -9,14 +9,21 @@ import se.kth.iv1350.sem3.model.RepairOrder;
 public class Printer {
 
 
+    /**
+     * Creates a new printer.
+     */
     public Printer() {
     }
 
     /**
-     * A method for printing a receipt.
+     * A method that creates and returns a receipt.
+     * 
+     * @param repairOrder The repair order that the receipt is based on.
+     * 
+     * @return Returns the created receipt.
      */
-    public String printReceipt(RepairOrder repairOrder) {
+    public Receipt getReceipt(RepairOrder repairOrder) {
         Receipt newReceipt = new Receipt(repairOrder);
-        return newReceipt.toString();
+        return newReceipt;
     }
 }
