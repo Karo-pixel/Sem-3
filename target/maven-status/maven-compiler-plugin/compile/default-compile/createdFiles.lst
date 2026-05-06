@@ -1,0 +1,12 @@
+se\kth\iv1350\sem3\startup\Main.class
+se\kth\iv1350\sem3\integration\RepairOrderRegistry.class
+se\kth\iv1350\sem3\model\Bike.class
+se\kth\iv1350\sem3\view\View.class
+se\kth\iv1350\sem3\control\Controller.class
+se\kth\iv1350\sem3\integration\CustomerRegistry.class
+se\kth\iv1350\sem3\integration\Printer.class
+se\kth\iv1350\sem3\model\RepairOrder.class
+se\kth\iv1350\sem3\model\RepairTask.class
+se\kth\iv1350\sem3\model\Receipt.class
+se\kth\iv1350\sem3\model\OrderManager.class
+se\kth\iv1350\sem3\model\Customer.class
