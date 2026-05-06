@@ -20,7 +20,7 @@ public class CustomerRegistryTest {
     private Customer customer;
 
     /**
-     * Sets up the test environment before each test.
+     * Set up the test environment before each test.
      * 
      */
     @BeforeEach
