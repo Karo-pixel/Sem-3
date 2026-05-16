@@ -1,5 +1,4 @@
 package se.kth.iv1350.sem3.model;
-import se.kth.iv1350.sem3.integration.CustomerRegistry;
 import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
 
 /**
@@ -14,7 +13,7 @@ public class OrderManager {
      * @param customerRegistry The programs CustomerRegistry.
      * @param repairOrderRegistry The programs RepairOrderRegistry.
      */
-    public OrderManager(CustomerRegistry customerRegistry, RepairOrderRegistry repairOrderRegistry) {
+    public OrderManager(RepairOrderRegistry repairOrderRegistry) {
         this.repairOrderRegistry = repairOrderRegistry;
     }
 
@@ -26,7 +25,7 @@ public class OrderManager {
      * @param problemDesc The problem description of the bike.
      * @return Returns the newly created repair order.
      */
-    public RepairOrder createRepairOrder(Customer customer, String date, String problemDesc) {
+    public RepairOrder createRepairOrder(CustomerDTO customer, String date, String problemDesc) {
         RepairOrder newRepairOrder = new RepairOrder(customer, date, problemDesc);
         repairOrderRegistry.addRepairOrder(newRepairOrder);
         return newRepairOrder;
@@ -39,11 +38,11 @@ public class OrderManager {
      * @param diagReport The diagnostic report.
      */
     public void addDiagnosticReport(RepairOrder repairOrder, String diagReport) {
-        repairOrder.addDiagnosticReport(diagReport);
+        repairOrder.setDiagnosticReport(diagReport);
     } 
 
     /**
-     * Creates a repair task.
+     * Creates a repair task and adds it to the repair order.
      * 
      * @param repairOrder The repair order that is going to have the repair task.
      * @param name The names of the repair task.
@@ -51,8 +50,8 @@ public class OrderManager {
      * @param cost The cost of the repair task.
      */
     public void createRepairTask(RepairOrder repairOrder, String name, String taskDesc, double cost) {
-        RepairTask repairTask = new RepairTask(name, taskDesc, cost);
-        repairOrderRegistry.addRepairTask(repairOrder, repairTask);
+        RepairTaskDTO repairTask = new RepairTaskDTO(name, taskDesc, cost);
+        repairOrder.addRepairTask(repairTask);
     }
 
     /**
@@ -72,6 +71,5 @@ public class OrderManager {
     public void rejectRepairOrder(RepairOrder repairOrder) {
         repairOrder.setState(false);
     }
-    
 
 }

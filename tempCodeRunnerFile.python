@@ -1,0 +1,126 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+use_file = False  # True = använd CSV, False = skapa egen data
+
+if use_file:
+
+    file = "OBS.csv"
+
+# =========================
+# LÄS IN FIL
+# =========================
+
+    df = pd.read_csv(file, sep=";", header=None, encoding="utf-8")
+
+# Kolumn 2 innehåller år-månad, t.ex. "2009-03"
+    ym = df[2]
+# Kolumn 3 innehåller temperaturen
+    T = df[3].astype(float).values
+
+# =========================
+# SKAPA TIDSVARIABEL
+# =========================
+    year = ym.str[:4].astype(int)
+    month = ym.str[5:7].astype(int)
+
+# Tid i år, till exempel:
+# januari = år + 0/12
+# februari = år + 1/12
+# mars = år + 2/12
+    t = year + (month - 1) / 12
+#.Values gör om från panda serie till en array
+    t = t.values
+
+else:
+    # Egen testdata
+    t = np.linspace(0, 10, 100)
+    T = 1 + 2*t + 0.5*t**2
+
+# =========================
+# SKAPA MATRISEN X
+# =========================
+# Varje rad i X motsvarar en mätpunkt:
+# [1, t_i, sin(omega*t_i), cos(omega*t_i)]
+
+X = np.column_stack([
+    np.ones(len(t)),
+    t,
+    t**2
+])
+
+# =========================
+# MINSTA KVADRATMETODEN
+# =========================
+# Vi löser normalekvationen:
+# X.T @ X @ beta = X.T @ T
+#
+
+
+beta = np.linalg.solve(X.T @ X, X.T @ T)
+
+# Plocka ut parametrarna
+a, b, c = beta
+
+# Modellens temperaturvärden
+T_sin = X @ beta
+
+# =========================
+# ÅTERGÅ TILL URSPRUNGLIGA PARAMETRAR
+# =========================
+
+# Gör om andel av år till ungefärlig månad
+month_names = [
+    "januari", "februari", "mars", "april",
+    "maj", "juni", "juli", "augusti",
+    "september", "oktober", "november", "december"
+]
+
+# =========================
+# FELMÅTT
+# =========================
+
+residualer = T - T_sin
+SSE = np.sum(residualer**2)
+RMSE = np.sqrt(np.mean(residualer**2))
+
+# =========================
+# SKRIV UT RESULTAT
+# =========================
+
+print(f"a = {a:.3f}")
+print(f"b = {b:.5f}")
+print(f"c = {c:.5f}")
+
+print("\nFel:")
+print(f"SSE = {SSE:.3f}")
+print(f"RMSE = {RMSE:.3f}")
+
+print("\nTolkning:")
+
+
+if b > 0:
+    print(f"Temperaturen ökar enligt modellen med ungefär {b:.4f} °C per år.")
+    print(f"Det motsvarar ungefär {10*b:.4f} °C per 10 år.")
+elif b < 0:
+    print(f"Temperaturen minskar enligt modellen med ungefär {abs(b):.4f} °C per år.")
+    print(f"Det motsvarar ungefär {abs(10*b):.4f} °C per 10 år.")
+else:
+    print("Modellen visar ingen temperaturtrend över tid.")
+
+# =========================
+# PLOT
+# =========================
+
+plt.figure(figsize=(10, 6))
+
+plt.plot(t, T, 'o', markersize=3, label="Data")
+plt.plot(t, T_sin, linewidth=2, label="Linjär + sinus")
+plt.xlim(0, 10)
+plt.xlabel("Tid (år)")
+plt.ylabel("Temperatur (°C)")
+plt.title(f"Temperaturmodell med minsta kvadratmetoden")
+plt.legend()
+plt.grid()
+plt.show()

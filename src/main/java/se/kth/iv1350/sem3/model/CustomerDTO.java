@@ -3,11 +3,11 @@ package se.kth.iv1350.sem3.model;
 /**
  * A class for Customer data type.
  */
-public class Customer {
+public class CustomerDTO {
     private String name;
     private String email;
     private String phoneNumber;
-    private Bike bike;
+    private BikeDTO bike;
 
     /**
      * The customer classes constructor.
@@ -17,7 +17,7 @@ public class Customer {
      * @param phoneNumber Customers phone number.
      * @param bike Customers bike.
      */
-    public Customer(String name, String email, String phoneNumber, Bike bike) {
+    public CustomerDTO(String name, String email, String phoneNumber, BikeDTO bike) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -56,17 +56,7 @@ public class Customer {
      * 
      * @return Returns customers bike.
      */
-    public Bike getBike() {
+    public BikeDTO getBike() {
         return this.bike;
-    }
-    
-    /**
-     * A method that returns customer infromation as strings.
-     */
-    @Override
-    public String toString() {
-        return "Customer name: " + this.name + "\n" +
-               "Email: " + this.email + "\n" +
-               "Phone number: " + this.phoneNumber + "\n";
     }
 }

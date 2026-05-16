@@ -18,10 +18,10 @@ public class Main {
      * @param args Command line arguments. This program does not use them.
      */
     public static void main(String[] args) {
-        Printer printer = new Printer();
         CustomerRegistry customerRegistry = new CustomerRegistry();
         RepairOrderRegistry repairOrderRegistry = new RepairOrderRegistry();
-        OrderManager manager = new OrderManager(customerRegistry, repairOrderRegistry);
+        Printer printer = new Printer();
+        OrderManager manager = new OrderManager(repairOrderRegistry);
 
         Controller contr = new Controller(manager, customerRegistry, repairOrderRegistry, printer);
 

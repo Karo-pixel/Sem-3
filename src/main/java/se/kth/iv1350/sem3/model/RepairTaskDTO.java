@@ -3,7 +3,7 @@ package se.kth.iv1350.sem3.model;
 /**
  * A class for RepairTask data type.
  */
-public class RepairTask {
+public class RepairTaskDTO {
     private String name;
     private String desc;
     private double cost;
@@ -15,7 +15,7 @@ public class RepairTask {
      * @param desc The RepairTasks description.
      * @param cost The RepairTasks cost.
      */
-    public RepairTask(String name, String desc, double cost) {
+    public RepairTaskDTO(String name, String desc, double cost) {
         this.name = name;
         this.desc = desc;
         this.cost = cost;
@@ -47,15 +47,4 @@ public class RepairTask {
     public double getCost() {
         return this.cost;
     }
-
-    /**
-     * A method that prints out the repair tasks information.
-     */
-    @Override
-    public String toString() {
-        return "Repair Task name: " + this.name + "\n" +
-               "Repair Task description: " + this.desc + "\n" +
-               "Repair Task cost: " + this.cost + " dollars." + "\n";
-    }
-
 }

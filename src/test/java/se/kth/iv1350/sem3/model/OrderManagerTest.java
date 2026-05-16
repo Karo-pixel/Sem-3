@@ -8,7 +8,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import se.kth.iv1350.sem3.integration.CustomerRegistry;
 import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
 
 /**
@@ -16,9 +15,8 @@ import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
  */
 public class OrderManagerTest {
     private OrderManager manager;
-    private CustomerRegistry customerRegistry;
     private RepairOrderRegistry repairOrderRegistry;
-    private Customer customer;
+    private CustomerDTO customer;
     private RepairOrder repairOrder;
 
     /**
@@ -26,12 +24,11 @@ public class OrderManagerTest {
      */
     @BeforeEach
     public void setUp() {
-        customerRegistry = new CustomerRegistry();
         repairOrderRegistry = new RepairOrderRegistry();
-        manager = new OrderManager(customerRegistry, repairOrderRegistry);
+        manager = new OrderManager(repairOrderRegistry);
 
-        Bike bike = new Bike("Lexus", "Tiger", "55");
-        customer = new Customer("Karo", "karosh@kth.se", "0704345829", bike);
+        BikeDTO bike = new BikeDTO("Lexus", "Tiger", "55");
+        customer = new CustomerDTO("Karo", "karosh@kth.se", "0704345829", bike);
         repairOrder = manager.createRepairOrder(customer, "2026-04-10", "The brakes don't work.");
     }
 
@@ -41,7 +38,6 @@ public class OrderManagerTest {
     @AfterEach
     public void tearDown() {
         manager = null;
-        customerRegistry = null;
         repairOrderRegistry = null;
         customer = null;
         repairOrder = null;
@@ -52,8 +48,8 @@ public class OrderManagerTest {
      */
     @Test
     public void testCreateRepairOrderReturnsOrderWithCorrectCustomer() {
-        Customer actual = repairOrder.getCustomer();
-        Customer expected = customer;
+        CustomerDTO actual = repairOrder.getCustomer();
+        CustomerDTO expected = customer;
 
         assertSame(expected, actual, "Expected the repair order to belong to the specified customer.");
     }
@@ -120,8 +116,8 @@ public class OrderManagerTest {
      */
     @Test
     public void testFindMissingRepairOrderReturnsNull() {
-        Bike bike = new Bike("Trek", "Marlin", "99");
-        Customer customerWithoutOrder = new Customer("Anna", "anna@kth.se", "0700000000", bike);
+        BikeDTO bike = new BikeDTO("Trek", "Marlin", "99");
+        CustomerDTO customerWithoutOrder = new CustomerDTO("Anna", "anna@kth.se", "0700000000", bike);
 
         RepairOrder actual = repairOrderRegistry.findRepairOrder(customerWithoutOrder);
 

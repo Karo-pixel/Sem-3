@@ -3,7 +3,7 @@ package se.kth.iv1350.sem3.model;
  * A class for Bike data type.
  */
 
-public class Bike {
+public class BikeDTO {
     private String bikeBrand;
     private String bikeModel;
     private String bikeSerialNo;
@@ -15,7 +15,7 @@ public class Bike {
      * @param bikeModel The bikes model.
      * @param bikeSerialNo The bikes serial number.
      */
-    public Bike(String bikeBrand, String bikeModel, String bikeSerialNo) {
+    public BikeDTO(String bikeBrand, String bikeModel, String bikeSerialNo) {
         this.bikeBrand = bikeBrand;
         this.bikeModel = bikeModel;
         this.bikeSerialNo = bikeSerialNo;
@@ -47,15 +47,4 @@ public class Bike {
     public String getBikeSerialNo() {
         return this.bikeSerialNo;
     }
-
-    /**
-     * A method that prints out the bike information.
-     */
-    @Override
-    public String toString() {
-        return "Bike brand: " + this.bikeBrand + "\n" +
-               "Bike model: " + this.bikeModel + "\n" +
-               "Bike Serial Number: " + this.bikeSerialNo + "\n";
-    }
-
 }

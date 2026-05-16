@@ -8,8 +8,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import se.kth.iv1350.sem3.model.Bike;
-import se.kth.iv1350.sem3.model.Customer;
+import se.kth.iv1350.sem3.model.BikeDTO;
+import se.kth.iv1350.sem3.model.CustomerDTO;
 
 /**
  * Test class for CustomerRegistry.
@@ -17,7 +17,7 @@ import se.kth.iv1350.sem3.model.Customer;
  */
 public class CustomerRegistryTest {
     private CustomerRegistry registry;
-    private Customer customer;
+    private CustomerDTO customer;
 
     /**
      * Set up the test environment before each test.
@@ -26,8 +26,8 @@ public class CustomerRegistryTest {
     @BeforeEach
     public void setUp() {
         registry = new CustomerRegistry();
-        Bike bike = new Bike("Lexus", "Tiger", "55");
-        customer = new Customer("Karo", "karosh@kth.se", "0704345829", bike);
+        BikeDTO bike = new BikeDTO("Lexus", "Tiger", "55");
+        customer = new CustomerDTO("Karo", "karosh@kth.se", "0704345829", bike);
     }
 
     /**
@@ -47,8 +47,8 @@ public class CustomerRegistryTest {
     public void testFindExistingCustomerReturnsAddedCustomer() {
         registry.addCustomer(customer);
 
-        Customer actual = registry.findCustomer("0704345829");
-        Customer expected = customer;
+        CustomerDTO actual = registry.findCustomer("0704345829");
+        CustomerDTO expected = customer;
 
         assertSame(expected, actual, "Expected to find the added customer.");
     }
@@ -58,7 +58,7 @@ public class CustomerRegistryTest {
      */
     @Test
     public void testFindMissingCustomerReturnsNull() {
-        Customer actual = registry.findCustomer("0000000000");
+        CustomerDTO actual = registry.findCustomer("0000000000");
 
         assertNull(actual, "Expected missing customer search to return null.");
     }

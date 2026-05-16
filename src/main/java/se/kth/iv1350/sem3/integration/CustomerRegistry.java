@@ -1,12 +1,12 @@
 package se.kth.iv1350.sem3.integration;
-import se.kth.iv1350.sem3.model.Customer;
+import se.kth.iv1350.sem3.model.CustomerDTO;
 import java.util.ArrayList;
 
 /**
  * A class for the programs customer registry.
  */
 public class CustomerRegistry {
-    private ArrayList<Customer> listOfCustomers;
+    private ArrayList<CustomerDTO> listOfCustomers;
 
     /**
      * The classes constructor.
@@ -20,15 +20,15 @@ public class CustomerRegistry {
      * 
      * @param newCustomer Is the new customer.
      */
-    public void addCustomer(Customer newCustomer) {
+    public void addCustomer(CustomerDTO newCustomer) {
         listOfCustomers.add(newCustomer);
     }
 
     /**
      * Finds a customer from the database.
      */
-    public Customer findCustomer(String phoneNumber) {
-        for (Customer currentCustomer : listOfCustomers) {
+    public CustomerDTO findCustomer(String phoneNumber) {
+        for (CustomerDTO currentCustomer : listOfCustomers) {
             if (currentCustomer.getPhoneNumber().equals(phoneNumber)) {
                 return currentCustomer;
             }

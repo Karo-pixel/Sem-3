@@ -1,8 +1,7 @@
 package se.kth.iv1350.sem3.integration;
 import java.util.ArrayList;
-import se.kth.iv1350.sem3.model.Customer;
+import se.kth.iv1350.sem3.model.CustomerDTO;
 import se.kth.iv1350.sem3.model.RepairOrder;
-import se.kth.iv1350.sem3.model.RepairTask;
 
 /**
  * A class for the programs repair order registry.
@@ -32,7 +31,7 @@ public class RepairOrderRegistry {
      * @param customer Is the customer that is connected to the repair order.
      * @return Returns the repair order that is found.
      */
-    public RepairOrder findRepairOrder(Customer customer) {
+    public RepairOrder findRepairOrder(CustomerDTO customer) {
         for (RepairOrder currentRepairOrder : listOfRepairOrders) {
             if (currentRepairOrder.getCustomer().getPhoneNumber().equals(customer.getPhoneNumber())) {
                 return currentRepairOrder;
@@ -41,24 +40,6 @@ public class RepairOrderRegistry {
         return null;
     }
 
-    /**
-     * Adds a repair task to a repair order.
-     * 
-     * @param repairOrder Is the repair order that is going to have the repair task.
-     * @param repairTask Is the repair task.
-     */
-    public void addRepairTask(RepairOrder repairOrder, RepairTask repairTask) {
-        repairOrder.addRepairTask(repairTask);
-    }
-
-    /**
-     * Gets repair tasks connected to a repair order.
-     * 
-     * @param repairOrder The repair order which its repair tasks are to be returned.
-     */
-    public String getRepairTasks(RepairOrder repairOrder) {
-        return repairOrder.getRepairTasks();
-    }
 
 
 

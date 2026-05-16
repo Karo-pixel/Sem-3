@@ -2,10 +2,10 @@ package se.kth.iv1350.sem3.control;
 import se.kth.iv1350.sem3.integration.Printer;
 import se.kth.iv1350.sem3.integration.CustomerRegistry;
 import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
-import se.kth.iv1350.sem3.model.Customer;
+import se.kth.iv1350.sem3.model.CustomerDTO;
 import se.kth.iv1350.sem3.model.OrderManager;
 import se.kth.iv1350.sem3.model.RepairOrder;
-import se.kth.iv1350.sem3.model.Receipt;
+
 /**
  * The programs Controller that manages calls from the view.
  */
@@ -35,7 +35,7 @@ public class Controller {
      * 
      * @param newCustomer is the customer object that gets added.
     */
-    public void addCustomer(Customer newCustomer) {
+    public void addCustomer(CustomerDTO newCustomer) {
         customerRegistry.addCustomer(newCustomer);
     }
 
@@ -46,7 +46,7 @@ public class Controller {
      * 
      * @return the method returns the found customer object.
     */
-    public Customer findCustomer(String phoneNumber) {
+    public CustomerDTO findCustomer(String phoneNumber) {
         return customerRegistry.findCustomer(phoneNumber);
     }
 
@@ -59,7 +59,7 @@ public class Controller {
      * 
      * @return Returns the created repair order.
      */
-    public RepairOrder createRepairOrder(Customer customer, String date, String problemDesc) {
+    public RepairOrder createRepairOrder(CustomerDTO customer, String date, String problemDesc) {
         return manager.createRepairOrder(customer, date, problemDesc);
     }
 
@@ -70,7 +70,7 @@ public class Controller {
      * 
      * @return Returns the repair order connected to the customer object.
      */
-    public RepairOrder findRepairOrder(Customer customer) {
+    public RepairOrder findRepairOrder(CustomerDTO customer) {
         return repairOrderRegistry.findRepairOrder(customer);
     }
 
@@ -101,8 +101,8 @@ public class Controller {
      * 
      * @param repairOrder The repair orders repair tasks that are to be shown.
      */
-    public String getRepairTasks(RepairOrder repairOrder) {
-        return repairOrderRegistry.getRepairTasks(repairOrder);
+    public void getRepairTasks(RepairOrder repairOrder) {
+
     }
 
     /**
@@ -129,7 +129,7 @@ public class Controller {
      * 
      * @return Returns the receipt.
      */
-    public Receipt getReceipt(RepairOrder repairOrder) {
-        return printer.getReceipt(repairOrder);
+    public void getReceipt(RepairOrder repairOrder) {
+        printer.printReceipt(repairOrder);
     }
 }

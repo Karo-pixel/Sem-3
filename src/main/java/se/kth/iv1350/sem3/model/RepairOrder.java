@@ -5,12 +5,13 @@ import java.util.ArrayList;
  * A class for RepairOrder data type.
  */
 public class RepairOrder {
-    private Customer customer;
+    private CustomerDTO customer;
     private String date;
     private String problemDesc;
     private String diagReport;
     private boolean state;
-    private ArrayList<RepairTask> listOfTasks;
+    private double totalCost;
+    private ArrayList<RepairTaskDTO> listOfTasks;
 
     /**
      * The classes constructor.
@@ -19,7 +20,7 @@ public class RepairOrder {
      * @param date The date of the RepairOrder data types creation.
      * @param problemDesc The problem description for the repair order.
      */
-    public RepairOrder(Customer customer, String date, String problemDesc) {
+    public RepairOrder(CustomerDTO customer, String date, String problemDesc) {
         this.customer = customer;
         this.date = date;
         this.problemDesc = problemDesc;
@@ -31,17 +32,16 @@ public class RepairOrder {
      * 
      * @return Returns the customer.
      */
-    public Customer getCustomer() {
+    public CustomerDTO getCustomer() {
         return this.customer;
     }
 
-    /**
-     * A method that adds a repair task to the repair order.
-     * 
-     * @param newRepairTask The repair task to be added.
-     */
-    public void addRepairTask(RepairTask newRepairTask) {
-        this.listOfTasks.add(newRepairTask);
+    public String getDate() {
+        return this.date;
+    }
+
+    public String getProblemDesc() {
+        return this.problemDesc;
     }
 
     /**
@@ -49,36 +49,12 @@ public class RepairOrder {
      * 
      * @param diagReport The diagnostic report.
      */
-    public void addDiagnosticReport(String diagReport) {
+    public void setDiagnosticReport(String diagReport) {
         this.diagReport = diagReport;
     }
 
-    /**
-     * A method that calculates the total cost of all repair tasks.
-     * 
-     * @return Returns the total cost of all repair tasks.
-     */
-    public double getTotalCost() {
-        double totalCost = 0;
-        for (RepairTask currentRepairTask : listOfTasks) {
-            totalCost = currentRepairTask.getCost() + totalCost;
-        }
-        return totalCost;
-    }
-
-    /**
-     * A method that returns all the repair tasks.
-     * 
-     * @return Returns all repair tasks.
-     */
-    public String getRepairTasks() {
-        String repairTasks = "";
-
-        for (RepairTask currentRepairTask : listOfTasks) {
-            repairTasks += currentRepairTask.toString() + "\n";
-        }
-
-        return repairTasks;
+    public String getDiagReport() {
+        return this.diagReport;
     }
 
     /**
@@ -87,23 +63,46 @@ public class RepairOrder {
      * @param newState The state of the repair order.
      */
     public void setState(boolean newState) {
-        state = newState;
+        this.state = newState;
+    }
+
+    public boolean getState() {
+        return this.state;
     }
 
     /**
-     * A method that prints out the details of the repair order.
+     * A method that adds a repair task to a repair order.
+     * 
+     * @param repairTask The repair task to be added.
      */
-    @Override
-    public String toString() {
-        return "-------------Repair Order--------------" + "\n" +
-               "Customers name: " + this.customer.getName() + "\n" +
-               "Date: " + this.date + "\n" +
-               "Problem description: " + this.problemDesc + "\n" +
-               "Diagnostic report: " + this.diagReport + "\n" +
-               "The state of the order: " + this.state + "\n" +
-               "Total cost of the repair order: " + getTotalCost() + " dollars." + "\n";
+    public void addRepairTask(RepairTaskDTO repairTask) {
+        listOfTasks.add(repairTask);
     }
-    
-    
 
+    public ArrayList<RepairTaskDTO> getListOfTasks() {
+        return this.listOfTasks;
+    }
+
+    /**
+     * A method that calculates the total cost of all repair tasks and returns it.
+     * 
+     * @return The total cost of all repair tasks.
+     */
+    private double calculateTotalCost() {
+        double totCost = 0;
+        for (RepairTaskDTO currentRepairTask : listOfTasks) {
+            totCost += currentRepairTask.getCost();
+        }
+        return totCost;
+    }
+
+    /**
+     * A method for returning the total cost of the repair order.
+     * 
+     * @return Returns the total cost.
+     */
+    public double getTotalCost() {
+        this.totalCost = calculateTotalCost();
+        return this.totalCost;
+    }
 }

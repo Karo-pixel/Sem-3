@@ -1,5 +1,4 @@
 package se.kth.iv1350.sem3.integration;
-import se.kth.iv1350.sem3.model.Receipt;
 import se.kth.iv1350.sem3.model.RepairOrder;
 
 
@@ -22,8 +21,8 @@ public class Printer {
      * 
      * @return Returns the created receipt.
      */
-    public Receipt getReceipt(RepairOrder repairOrder) {
-        Receipt newReceipt = new Receipt(repairOrder);
-        return newReceipt;
+    public void printReceipt(RepairOrder repairOrder) {
+        System.out.println("----------------Receipt----------------");
+        System.out.println(repairOrder);
     }
 }
