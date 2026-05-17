@@ -40,6 +40,24 @@ public class RepairOrderRegistry {
         return null;
     }
 
+    /**
+     * Thid method updates the data base by replacing the old repair order with the new one.
+     * 
+     * @param oldRepairOrder The old repair order.
+     * @param newRepairOrder The new repair order.
+     * 
+     * @return Returns the newly stored repair order if succesful, otherwise returns null.
+     */
+    public RepairOrder updateRepairOrder(RepairOrder oldRepairOrder, RepairOrder newRepairOrder) {
+        for (int i = 0; i < listOfRepairOrders.size(); i++) {
+            if (listOfRepairOrders.get(i).getCustomer().getPhoneNumber().equals(oldRepairOrder.getCustomer().getPhoneNumber())) {
+                listOfRepairOrders.set(i, newRepairOrder);
+                return newRepairOrder;
+            }
+        }
+        return null;
+    }
+
 
 
 

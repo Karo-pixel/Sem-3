@@ -10,7 +10,6 @@ public class OrderManager {
     /**
      * The classes constructor.
      * 
-     * @param customerRegistry The programs CustomerRegistry.
      * @param repairOrderRegistry The programs RepairOrderRegistry.
      */
     public OrderManager(RepairOrderRegistry repairOrderRegistry) {
@@ -23,6 +22,7 @@ public class OrderManager {
      * @param customer The customer that is going to have the repair order.
      * @param date The date of creation of the repair order.
      * @param problemDesc The problem description of the bike.
+     * 
      * @return Returns the newly created repair order.
      */
     public RepairOrder createRepairOrder(CustomerDTO customer, String date, String problemDesc) {
@@ -36,9 +36,13 @@ public class OrderManager {
      * 
      * @param repairOrder The repair order that is getting a diagnostic report.
      * @param diagReport The diagnostic report.
+     * 
+     * @return Returns the updated repair order.
      */
-    public void addDiagnosticReport(RepairOrder repairOrder, String diagReport) {
-        repairOrder.setDiagnosticReport(diagReport);
+    public RepairOrder addDiagnosticReport(RepairOrder repairOrder, String diagReport) {
+        RepairOrder newRepairOrder = new RepairOrder(repairOrder);
+        newRepairOrder.setDiagnosticReport(diagReport);
+        return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
     } 
 
     /**
@@ -48,28 +52,40 @@ public class OrderManager {
      * @param name The names of the repair task.
      * @param taskDesc The description of the repair task.
      * @param cost The cost of the repair task.
+     * 
+     * @return Returns the updated repair order.
      */
-    public void createRepairTask(RepairOrder repairOrder, String name, String taskDesc, double cost) {
+    public RepairOrder createRepairTask(RepairOrder repairOrder, String name, String taskDesc, double cost) {
         RepairTaskDTO repairTask = new RepairTaskDTO(name, taskDesc, cost);
-        repairOrder.addRepairTask(repairTask);
+        RepairOrder newRepairOrder = new RepairOrder(repairOrder);
+        newRepairOrder.addRepairTask(repairTask);
+        return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
     }
 
     /**
      * Accepts the repair order.
      * 
      * @param repairOrder The repair order to be accepted.
+     * 
+     * @return Returns the updated repair order.
      */
-    public void acceptRepairOrder(RepairOrder repairOrder) {
-        repairOrder.setState(true);
+    public RepairOrder acceptRepairOrder(RepairOrder repairOrder) {
+        RepairOrder newRepairOrder = new RepairOrder(repairOrder);
+        newRepairOrder.setState(true);
+        return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
     }
 
     /**
      * Rejects the repair order.
      * 
      * @param repairOrder The repair order to be rejected.
+     * 
+     * @return Returns the updated repair order.
      */
-    public void rejectRepairOrder(RepairOrder repairOrder) {
-        repairOrder.setState(false);
+    public RepairOrder rejectRepairOrder(RepairOrder repairOrder) {
+        RepairOrder newRepairOrder = new RepairOrder(repairOrder);
+        newRepairOrder.setState(false);
+        return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
     }
 
 }

@@ -4,8 +4,6 @@ import se.kth.iv1350.sem3.model.BikeDTO;
 import se.kth.iv1350.sem3.model.CustomerDTO;
 import se.kth.iv1350.sem3.model.RepairOrder;
 import se.kth.iv1350.sem3.model.RepairTaskDTO;
-import se.kth.iv1350.sem3.model.RepairTaskDTO;
-
 
 /**
  * The programs view class.
@@ -39,30 +37,33 @@ public class View {
 
         System.out.println("A repair order is created and printed: \n");
 
-        RepairOrder newRepairOrder = contr.createRepairOrder(found, "2026-04-10", "The brakes don't work.");
-        System.out.println(getRepairOrder(newRepairOrder));
+        RepairOrder rep = contr.createRepairOrder(found, "2026-04-10", "The brakes don't work.");
+        System.out.println(getRepairOrder(rep));
 
 
         System.out.println("The repair order after a diagnostic report is added: \n");
 
-        contr.addDiagnosticReport(newRepairOrder, "The brakes and wheels need to be changed.");
-        System.out.println(getRepairOrder(newRepairOrder));
+        rep = contr.addDiagnosticReport(rep, "The brakes and wheels need to be changed.");
+        System.out.println(getRepairOrder(rep));
 
 
         System.out.println("The repair order after repair tasks are added: \n");
 
-        contr.createRepairTask(newRepairOrder, "Wheels", "Wheels are too old.", 70);
-        contr.createRepairTask(newRepairOrder, "Brakes", "Brakes are damaged", 20);
-        contr.createRepairTask(newRepairOrder, "Chassi", "The chassi is rusted", 110);
-        System.out.println(getRepairTaskDTO(newRepairOrder));
-        System.out.println(getRepairOrder(newRepairOrder));
+        rep = contr.createRepairTask(rep, "Wheels", "Wheels are too old.", 70);
+        rep = contr.createRepairTask(rep, "Brakes", "Brakes are damaged", 20);
+        rep = contr.createRepairTask(rep, "Chassi", "The chassi is rusted", 110);
+        System.out.println(getRepairTaskDTO(rep));
+        System.out.println(getRepairOrder(rep));
 
         System.out.println("The repair order after it is accepted: \n");
 
-        contr.acceptRepairOrder(newRepairOrder);
-        System.out.println(getRepairOrder(newRepairOrder));
+        rep = contr.acceptRepairOrder(rep);
+        System.out.println(getRepairOrder(rep));
 
         System.out.println("The receipt: \n");
+
+        contr.getReceipt(rep);
+        
     }
 
     private String getBikeDTO(BikeDTO bike) {

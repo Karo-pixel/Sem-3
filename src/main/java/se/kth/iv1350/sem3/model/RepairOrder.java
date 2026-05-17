@@ -14,7 +14,7 @@ public class RepairOrder {
     private ArrayList<RepairTaskDTO> listOfTasks;
 
     /**
-     * The classes constructor.
+     * The classes first constructor.
      * 
      * @param customer The Customer data type.
      * @param date The date of the RepairOrder data types creation.
@@ -28,6 +28,21 @@ public class RepairOrder {
     }
 
     /**
+     * The classes second constructor used when a repair order is udpated.
+     * 
+     * @param repairOrder The old repair order.
+     */
+    public RepairOrder(RepairOrder oldRepairOrder) {
+        this.customer = oldRepairOrder.getCustomer();
+        this.date = oldRepairOrder.getDate();
+        this.problemDesc = oldRepairOrder.getProblemDesc();
+        this.diagReport = oldRepairOrder.getDiagReport();
+        this.state = oldRepairOrder.getState();
+        this.totalCost = oldRepairOrder.getTotalCost();
+        this.listOfTasks = new ArrayList<>(oldRepairOrder.getListOfTasks());
+    }
+
+    /**
      * A getter method that returns the customer.
      * 
      * @return Returns the customer.
@@ -36,10 +51,20 @@ public class RepairOrder {
         return this.customer;
     }
 
+    /**
+     * A getter method that returns the date.
+     * 
+     * @return Returns the date.
+     */
     public String getDate() {
         return this.date;
     }
 
+    /**
+     * A getter method that returns the problem description.
+     * 
+     * @return Returns the problem the description.
+     */
     public String getProblemDesc() {
         return this.problemDesc;
     }
@@ -53,6 +78,11 @@ public class RepairOrder {
         this.diagReport = diagReport;
     }
 
+    /**
+     * A getter method that returns the diagnostic report.
+     * 
+     * @return Returns the diagnostic report.
+     */
     public String getDiagReport() {
         return this.diagReport;
     }
@@ -66,6 +96,11 @@ public class RepairOrder {
         this.state = newState;
     }
 
+    /**
+     * A getter method that returns the state.
+     * 
+     * @return Returns the state.
+     */
     public boolean getState() {
         return this.state;
     }

@@ -23,6 +23,11 @@ public class Printer {
      */
     public void printReceipt(RepairOrder repairOrder) {
         System.out.println("----------------Receipt----------------");
-        System.out.println(repairOrder);
+        System.out.println("Receipt for: " + repairOrder.getCustomer().getName());
+        System.out.println("At the date: " + repairOrder.getDate());
+        System.out.println("Technicians report: " + repairOrder.getDiagReport());
+        System.out.println("Number of tasks: " + repairOrder.getListOfTasks().size());
+        System.out.println("Total cost of tasks: " + repairOrder.getTotalCost() + " dollars.");
+        System.out.println("State of the repair order: " + repairOrder.getState() + "\n");
     }
 }

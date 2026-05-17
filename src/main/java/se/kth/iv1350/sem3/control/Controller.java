@@ -79,9 +79,11 @@ public class Controller {
      * 
      * @param repairOrder The repair order object.
      * @param diagReport The diagnostic report.
+     * 
+     * @return Returns the updated repair order
      */
-    public void addDiagnosticReport(RepairOrder repairOrder, String diagReport) {
-        manager.addDiagnosticReport(repairOrder, diagReport);
+    public RepairOrder addDiagnosticReport(RepairOrder repairOrder, String diagReport) {
+        return manager.addDiagnosticReport(repairOrder, diagReport);
     }
 
     /**
@@ -91,35 +93,32 @@ public class Controller {
      * @param name The name for the repair task.
      * @param taskDesc The task description for the repair task.
      * @param cost The cost of the repair task.
-     */
-    public void createRepairTask(RepairOrder repairOrder, String name, String taskDesc, double cost) {
-        manager.createRepairTask(repairOrder, name, taskDesc, cost);
-    }
-
-    /**
-     * Returns all repair tasks connected to a repair order.
      * 
-     * @param repairOrder The repair orders repair tasks that are to be shown.
+     * @return Returns the updated repair order.
      */
-    public void getRepairTasks(RepairOrder repairOrder) {
-
+    public RepairOrder createRepairTask(RepairOrder repairOrder, String name, String taskDesc, double cost) {
+        return manager.createRepairTask(repairOrder, name, taskDesc, cost);
     }
 
     /**
      * Accepts a repair order.
      * 
      * @param repairOrder The repair order to be accepted.
+     * 
+     * @return Returns the updated repair order.
      */
-    public void acceptRepairOrder(RepairOrder repairOrder) {
-        manager.acceptRepairOrder(repairOrder);
+    public RepairOrder acceptRepairOrder(RepairOrder repairOrder) {
+        return manager.acceptRepairOrder(repairOrder);
     }
     /**
      * Rejects a repair order.
      * 
      * @param repairOrder The repair order to be rejected.
+     * 
+     * @return Returns the updated repair order.
      */
-    public void rejectRepairOrder(RepairOrder repairOrder) {
-        manager.rejectRepairOrder(repairOrder);
+    public RepairOrder rejectRepairOrder(RepairOrder repairOrder) {
+        return manager.rejectRepairOrder(repairOrder);
     }
 
     /**
