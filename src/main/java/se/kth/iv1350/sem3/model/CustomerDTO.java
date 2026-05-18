@@ -4,10 +4,10 @@ package se.kth.iv1350.sem3.model;
  * Contains customer information transferred between layers.
  */
 public class CustomerDTO {
-    private String name;
-    private String email;
-    private String phoneNumber;
-    private BikeDTO bike;
+    private final String name;
+    private final String email;
+    private final String phoneNumber;
+    private final BikeDTO bike;
 
     /**
      * The customer classes constructor.
@@ -24,6 +24,11 @@ public class CustomerDTO {
         this.bike = bike;
     }
 
+    /**
+     * Creates a copy of an existing customer.
+     *
+     * @param oldCustomer The customer to copy.
+     */
     public CustomerDTO(CustomerDTO oldCustomer) {
         this.name = oldCustomer.getName();
         this.email = oldCustomer.getEmail();
@@ -59,11 +64,11 @@ public class CustomerDTO {
     }
 
     /**
-     * A getter method that returns customers bike.
+     * A getter method that returns a copy of customers bike.
      * 
-     * @return Returns customers bike.
+     * @return Returns a copy of customers bike.
      */
     public BikeDTO getBike() {
-        return this.bike;
+        return new BikeDTO(bike);
     }
 }

@@ -1,8 +1,8 @@
 package se.kth.iv1350.sem3.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +51,11 @@ public class OrderManagerTest {
         CustomerDTO actual = repairOrder.getCustomer();
         CustomerDTO expected = customer;
 
-        assertSame(expected, actual, "Expected the repair order to belong to the specified customer.");
+        assertNotSame(expected, actual, "Both customers have the same reference.");
+    
+        assertEquals(expected.getName(), actual.getName(), "Wrong customer name.");
+        assertEquals(expected.getEmail(), actual.getEmail(), "Wrong customer email.");
+        assertEquals(expected.getPhoneNumber(), actual.getPhoneNumber(), "Wrong customer phone number.");
     }
 
     /**
@@ -62,7 +66,11 @@ public class OrderManagerTest {
         RepairOrder actual = repairOrderRegistry.findRepairOrder(customer);
         RepairOrder expected = repairOrder;
 
-        assertSame(expected, actual, "Expected the created repair order to be stored in the registry.");
+        assertNotSame(expected, actual, "Expected objects with different references.");
+
+        assertEquals(expected.getCustomer().getName(), actual.getCustomer().getName(), "Expected the same customer names.");
+        assertEquals(expected.getDate(), actual.getDate(), "Expected the same dates.");
+        assertEquals(expected.getDiagReport(), actual.getDiagReport(), "Expected the same diagnostic reports.");
     }
 
     /**
@@ -70,11 +78,11 @@ public class OrderManagerTest {
      */
     @Test
     public void testCreateRepairTaskAddsCostToTotalCost() {
-        manager.createRepairTask(repairOrder, "Wheels", "Wheels are too old.", 70);
-        manager.createRepairTask(repairOrder, "Brakes", "Brakes are damaged.", 20);
+        repairOrder = manager.createRepairTask(repairOrder, "Wheels", "Wheels are too old.", 70);
+        repairOrder = manager.createRepairTask(repairOrder, "Brakes", "Brakes are damaged.", 20);
 
         double actual = repairOrder.getTotalCost();
-        double expected = 90;
+        double expected = 90.0;
 
         assertEquals(expected, actual, "Expected total cost to include all created repair tasks.");
     }
@@ -84,14 +92,12 @@ public class OrderManagerTest {
      */
     @Test
     public void testAcceptRepairOrderChangesStateToAccepted() {
-        manager.acceptRepairOrder(repairOrder);
+        repairOrder = manager.acceptRepairOrder(repairOrder);
 
-        String actual = repairOrder.toString();
-        String expected = "The state of the order: true";
+        boolean actual = repairOrder.getState();
+        boolean expected = true;
 
-        boolean containsAcceptedState = actual.contains(expected);
-
-        assertEquals(true, containsAcceptedState, "Expected repair order state to be true after accepting.");
+        assertEquals(expected, actual, "Expected repair order state to be true after accepting.");
     }
 
     /**
@@ -99,15 +105,13 @@ public class OrderManagerTest {
      */
     @Test
     public void testRejectRepairOrderChangesStateToRejected() {
-        manager.acceptRepairOrder(repairOrder);
-        manager.rejectRepairOrder(repairOrder);
+        repairOrder = manager.acceptRepairOrder(repairOrder);
+        repairOrder = manager.rejectRepairOrder(repairOrder);
 
-        String actual = repairOrder.toString();
-        String expected = "The state of the order: false";
+        boolean actual = repairOrder.getState();
+        boolean expected = false;
 
-        boolean containsRejectedState = actual.contains(expected);
-
-        assertEquals(true, containsRejectedState, "Expected repair order state to be false after rejecting.");
+        assertEquals(expected, actual, "Expected repair order state to be false after rejecting.");
 
     }
 
@@ -122,5 +126,26 @@ public class OrderManagerTest {
         RepairOrder actual = repairOrderRegistry.findRepairOrder(customerWithoutOrder);
 
         assertNull(actual, "Expected search for customer without repair order to return null.");
+    }
+
+    /**
+     * Tests to see if the diagnostic report is correctly added to the repair order.
+     */
+    @Test
+    public void testAddDiagnosticReportAddsCorrectReport() {
+        repairOrder = manager.addDiagnosticReport(repairOrder, "Brakes need replacement.");
+
+        assertEquals("Brakes need replacement.", repairOrder.getDiagReport(), "Expected diagnostic report to be added.");
+    }
+
+    /**
+     * Tests to see if a repair task is correctly added to the repair order.
+     */
+    @Test
+    public void testCreateRepairTaskAddsTaskToRepairOrder() {
+        repairOrder = manager.createRepairTask(repairOrder, "Brakes", "Replace brake pads.", 20);
+
+        assertEquals(1, repairOrder.getListOfTasks().size(), "Expected one repair task to be added.");
+        assertEquals("Brakes", repairOrder.getListOfTasks().get(0).getName(), "Wrong repair task name.");
     }
 }

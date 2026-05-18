@@ -31,21 +31,21 @@ public class Controller {
     }
 
     /**
-     * This method adds a customer object to the database.
-     * 
-     * @param newCustomer is the customer object that gets added.
-    */
+     * Registers a new customer.
+     *
+     * @param newCustomer The customer to register.
+     */
     public void addCustomer(CustomerDTO newCustomer) {
         customerRegistry.addCustomer(newCustomer);
     }
 
     /**
-     * This method finds a customer from the database.
+     * Searches for a customer by phone number.
+     *
+     * @param phoneNumber The customer's phone number.
      * 
-     * @param phoneNumber is the customers phone number.
-     * 
-     * @return the method returns the found customer object.
-    */
+     * @return The matching customer, or {@code null} if no customer is found.
+     */
     public CustomerDTO findCustomer(String phoneNumber) {
         return customerRegistry.findCustomer(phoneNumber);
     }

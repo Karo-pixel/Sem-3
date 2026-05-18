@@ -4,9 +4,9 @@ package se.kth.iv1350.sem3.model;
  * Contains information about a customer's bike.
  */
 public class BikeDTO {
-    private String bikeBrand;
-    private String bikeModel;
-    private String bikeSerialNo;
+    private final String bikeBrand;
+    private final String bikeModel;
+    private final String bikeSerialNo;
 
     /**
      * The Bike classes constructor.
@@ -21,6 +21,11 @@ public class BikeDTO {
         this.bikeSerialNo = bikeSerialNo;
     }
 
+    /**
+     * Creates a copy of an existing bike.
+     *
+     * @param oldBike The bike to copy.
+     */
     public BikeDTO(BikeDTO oldBike) {
         this.bikeBrand = oldBike.getBikeBrand();
         this.bikeModel = oldBike.getBikeModel();

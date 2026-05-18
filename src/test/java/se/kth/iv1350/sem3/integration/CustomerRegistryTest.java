@@ -1,8 +1,8 @@
 package se.kth.iv1350.sem3.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,9 +48,10 @@ public class CustomerRegistryTest {
         registry.addCustomer(customer);
 
         CustomerDTO actual = registry.findCustomer("0704345829");
-        CustomerDTO expected = customer;
 
-        assertSame(expected, actual, "Expected to find the added customer.");
+        assertEquals(customer.getName(), actual.getName(), "Wrong customer name.");
+        assertEquals(customer.getEmail(), actual.getEmail(), "Wrong customer email.");
+        assertEquals(customer.getPhoneNumber(), actual.getPhoneNumber(), "Wrong customer phone number.");
     }
 
     /**
@@ -61,5 +62,29 @@ public class CustomerRegistryTest {
         CustomerDTO actual = registry.findCustomer("0000000000");
 
         assertNull(actual, "Expected missing customer search to return null.");
+    }
+
+    /**
+     * Test to see if customer registry returns a copy of the customer and not the actual object.
+     */
+    @Test
+    public void testFindCustomerReturnsCopy() {
+        registry.addCustomer(customer);
+
+        CustomerDTO actual = registry.findCustomer(customer.getPhoneNumber());
+
+        assertNotSame(customer, actual, "Expected registry to return a copy of the customer, not the original object.");
+    }
+
+    /**
+     * Test to see if customer registry has stored the customer by deep copying its information such as its bike.
+     */
+    @Test
+    public void testFindCustomerReturnsCustomerWithCopiedBike() {
+        registry.addCustomer(customer);
+
+        CustomerDTO actual = registry.findCustomer(customer.getPhoneNumber());
+
+        assertNotSame(customer.getBike(), actual.getBike(), "Expected returned customer to contain a copy of the bike.");
     }
 }

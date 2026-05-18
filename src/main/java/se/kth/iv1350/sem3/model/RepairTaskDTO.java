@@ -4,9 +4,9 @@ package se.kth.iv1350.sem3.model;
  * Contains information about a repair task.
  */
 public class RepairTaskDTO {
-    private String name;
-    private String desc;
-    private double cost;
+    private final String name;
+    private final String desc;
+    private final double cost;
 
     /**
      * The classes constructor.
@@ -21,6 +21,11 @@ public class RepairTaskDTO {
         this.cost = cost;
     }
 
+    public RepairTaskDTO(RepairTaskDTO oldTask) {
+        this.name = oldTask.getName();
+        this.desc = oldTask.getDesc();
+        this.cost = oldTask.getCost();
+    }
     /**
      * A getter method that returns the repair tasks name.
      * 

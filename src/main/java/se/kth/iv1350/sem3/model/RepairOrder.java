@@ -20,7 +20,7 @@ public class RepairOrder {
      * @param problemDesc The problem description for the repair order.
      */
     public RepairOrder(CustomerDTO customer, String date, String problemDesc) {
-        this.customer = customer;
+        this.customer = new CustomerDTO(customer);
         this.date = date;
         this.problemDesc = problemDesc;
         this.listOfTasks = new ArrayList<>();
@@ -32,12 +32,15 @@ public class RepairOrder {
      * @param oldRepairOrder The repair order to copy.
      */
     public RepairOrder(RepairOrder oldRepairOrder) {
-        this.customer = oldRepairOrder.getCustomer();
+        this.customer = new CustomerDTO(oldRepairOrder.getCustomer());
         this.date = oldRepairOrder.getDate();
         this.problemDesc = oldRepairOrder.getProblemDesc();
         this.diagReport = oldRepairOrder.getDiagReport();
         this.state = oldRepairOrder.getState();
-        this.listOfTasks = new ArrayList<>(oldRepairOrder.getListOfTasks());
+        this.listOfTasks = new ArrayList<>();
+        for (RepairTaskDTO task : oldRepairOrder.getListOfTasks()) {
+            this.listOfTasks.add(new RepairTaskDTO(task));
+        }
     }
 
     /**
