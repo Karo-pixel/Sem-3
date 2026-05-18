@@ -3,34 +3,37 @@ import se.kth.iv1350.sem3.model.CustomerDTO;
 import java.util.ArrayList;
 
 /**
- * A class for the programs customer registry.
+ * Simulates a database that stores customers.
  */
 public class CustomerRegistry {
     private ArrayList<CustomerDTO> listOfCustomers;
 
     /**
-     * The classes constructor.
+     * Creates an empty customer registry.
      */
     public CustomerRegistry() {
         listOfCustomers = new ArrayList<>();
     }
 
     /**
-     * Adds a customer to the database.
-     * 
-     * @param newCustomer Is the new customer.
+     * Adds a customer to the simulated database.
+     *
+     * @param newCustomer The customer to add.
      */
     public void addCustomer(CustomerDTO newCustomer) {
-        listOfCustomers.add(newCustomer);
+        listOfCustomers.add(new CustomerDTO(newCustomer));
     }
 
     /**
-     * Finds a customer from the database.
+     * Searches for a customer by phone number.
+     *
+     * @param phoneNumber The phone number of the customer to find.
+     * @return The matching customer, or {@code null} if no customer is found.
      */
     public CustomerDTO findCustomer(String phoneNumber) {
         for (CustomerDTO currentCustomer : listOfCustomers) {
             if (currentCustomer.getPhoneNumber().equals(phoneNumber)) {
-                return currentCustomer;
+                return new CustomerDTO(currentCustomer);
             }
         }
         return null;

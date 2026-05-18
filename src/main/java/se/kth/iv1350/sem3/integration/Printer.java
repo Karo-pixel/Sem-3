@@ -3,23 +3,21 @@ import se.kth.iv1350.sem3.model.RepairOrder;
 
 
 /**
- * A class for a printer.
+ * Simulates an external printer system that prints receipts.
  */
 public class Printer {
 
 
     /**
-     * Creates a new printer.
+     * Creates a printer representing the external printer system.
      */
     public Printer() {
     }
 
     /**
-     * A method that creates and returns a receipt.
-     * 
-     * @param repairOrder The repair order that the receipt is based on.
-     * 
-     * @return Returns the created receipt.
+     * Prints a receipt for the specified repair order.
+     *
+     * @param repairOrder The repair order to print a receipt for.
      */
     public void printReceipt(RepairOrder repairOrder) {
         System.out.println("----------------Receipt----------------");

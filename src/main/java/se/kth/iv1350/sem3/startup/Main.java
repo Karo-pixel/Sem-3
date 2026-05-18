@@ -8,13 +8,13 @@ import se.kth.iv1350.sem3.model.OrderManager;
 import se.kth.iv1350.sem3.view.View;
 
 /**
- * The main class of the program.
+ * Starts the application and creates the initial system objects.
  */
 public class Main {
 
     /**
      * Starts the application.
-     * 
+     *
      * @param args Command line arguments. This program does not use them.
      */
     public static void main(String[] args) {

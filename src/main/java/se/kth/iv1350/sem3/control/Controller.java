@@ -7,7 +7,7 @@ import se.kth.iv1350.sem3.model.OrderManager;
 import se.kth.iv1350.sem3.model.RepairOrder;
 
 /**
- * The programs Controller that manages calls from the view.
+ * Handles requests from the view and coordinates calls to the model and integration layers.
  */
 public class Controller {
     private OrderManager manager;
@@ -16,12 +16,12 @@ public class Controller {
     private Printer printer;
     
     /**
-     * Creates a controller.
-     * 
-     * @param manager This is the programs order manager.
-     * @param customerRegistry This is the programs customer registry.
-     * @param repairOrderRegistry This is the programs repair order registry.
-     * @param printer This is the programs printer.
+     * Creates a new controller.
+     *
+     * @param manager Handles repair order business logic.
+     * @param customerRegistry Stores and retrieves customers.
+     * @param repairOrderRegistry Stores and retrieves repair orders.
+     * @param printer Prints receipts through the external printer system.
      */
     public Controller(OrderManager manager, CustomerRegistry customerRegistry, RepairOrderRegistry repairOrderRegistry, Printer printer) {
         this.manager = manager;
@@ -122,13 +122,11 @@ public class Controller {
     }
 
     /**
-     * This method gets a receipt.
-     * 
-     * @param repairOrder The repair order that the receipt is based on.
-     * 
-     * @return Returns the receipt.
+     * Prints a receipt for the specified repair order.
+     *
+     * @param repairOrder The repair order to print a receipt for.
      */
-    public void getReceipt(RepairOrder repairOrder) {
+    public void printReceipt(RepairOrder repairOrder) {
         printer.printReceipt(repairOrder);
     }
 }

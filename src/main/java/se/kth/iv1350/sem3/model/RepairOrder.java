@@ -2,7 +2,7 @@ package se.kth.iv1350.sem3.model;
 import java.util.ArrayList;
 
 /**
- * A class for RepairOrder data type.
+ * Represents a repair order for a customer's bike.
  */
 public class RepairOrder {
     private CustomerDTO customer;
@@ -10,7 +10,6 @@ public class RepairOrder {
     private String problemDesc;
     private String diagReport;
     private boolean state;
-    private double totalCost;
     private ArrayList<RepairTaskDTO> listOfTasks;
 
     /**
@@ -28,9 +27,9 @@ public class RepairOrder {
     }
 
     /**
-     * The classes second constructor used when a repair order is udpated.
-     * 
-     * @param repairOrder The old repair order.
+     * Creates a copy of an existing repair order.
+     *
+     * @param oldRepairOrder The repair order to copy.
      */
     public RepairOrder(RepairOrder oldRepairOrder) {
         this.customer = oldRepairOrder.getCustomer();
@@ -38,7 +37,6 @@ public class RepairOrder {
         this.problemDesc = oldRepairOrder.getProblemDesc();
         this.diagReport = oldRepairOrder.getDiagReport();
         this.state = oldRepairOrder.getState();
-        this.totalCost = oldRepairOrder.getTotalCost();
         this.listOfTasks = new ArrayList<>(oldRepairOrder.getListOfTasks());
     }
 
@@ -61,17 +59,17 @@ public class RepairOrder {
     }
 
     /**
-     * A getter method that returns the problem description.
-     * 
-     * @return Returns the problem the description.
+     * Gets the problem description.
+     *
+     * @return The problem description.
      */
     public String getProblemDesc() {
         return this.problemDesc;
     }
 
     /**
-     * A method that adds a diagnostic report to the repair order.
-     * 
+     * Sets the diagnostic report for this repair order.
+     *
      * @param diagReport The diagnostic report.
      */
     public void setDiagnosticReport(String diagReport) {
@@ -88,18 +86,18 @@ public class RepairOrder {
     }
 
     /**
-     * A method that sets the state of the repair order.
-     * 
-     * @param newState The state of the repair order.
+     * Sets whether this repair order has been accepted.
+     *
+     * @param newState {@code true} if the order is accepted, {@code false} if it is rejected.
      */
     public void setState(boolean newState) {
         this.state = newState;
     }
 
     /**
-     * A getter method that returns the state.
-     * 
-     * @return Returns the state.
+     * Checks whether this repair order has been accepted.
+     *
+     * @return {@code true} if the order is accepted, {@code false} if it is rejected.
      */
     public boolean getState() {
         return this.state;
@@ -114,15 +112,15 @@ public class RepairOrder {
         listOfTasks.add(repairTask);
     }
 
+    /**
+     * Gets a copy of the repair tasks included in this repair order.
+     *
+     * @return A copy of the list of repair tasks.
+     */
     public ArrayList<RepairTaskDTO> getListOfTasks() {
-        return this.listOfTasks;
+        return new ArrayList<>(this.listOfTasks);
     }
 
-    /**
-     * A method that calculates the total cost of all repair tasks and returns it.
-     * 
-     * @return The total cost of all repair tasks.
-     */
     private double calculateTotalCost() {
         double totCost = 0;
         for (RepairTaskDTO currentRepairTask : listOfTasks) {
@@ -132,12 +130,11 @@ public class RepairOrder {
     }
 
     /**
-     * A method for returning the total cost of the repair order.
-     * 
-     * @return Returns the total cost.
+     * Gets the total cost of all repair tasks in this order.
+     *
+     * @return The total cost of the repair order.
      */
     public double getTotalCost() {
-        this.totalCost = calculateTotalCost();
-        return this.totalCost;
+        return calculateTotalCost();
     }
 }

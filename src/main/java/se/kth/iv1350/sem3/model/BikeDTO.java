@@ -1,8 +1,8 @@
 package se.kth.iv1350.sem3.model;
-/**
- * A class for Bike data type.
- */
 
+/**
+ * Contains information about a customer's bike.
+ */
 public class BikeDTO {
     private String bikeBrand;
     private String bikeModel;
@@ -19,6 +19,12 @@ public class BikeDTO {
         this.bikeBrand = bikeBrand;
         this.bikeModel = bikeModel;
         this.bikeSerialNo = bikeSerialNo;
+    }
+
+    public BikeDTO(BikeDTO oldBike) {
+        this.bikeBrand = oldBike.getBikeBrand();
+        this.bikeModel = oldBike.getBikeModel();
+        this.bikeSerialNo = oldBike.getBikeSerialNo();
     }
 
     /**

@@ -2,15 +2,15 @@ package se.kth.iv1350.sem3.model;
 import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
 
 /**
- * Creates the class OrderManager for handling orders.
+ * Handles business logic related to repair orders.
  */
 public class OrderManager {
     private RepairOrderRegistry repairOrderRegistry;
 
     /**
-     * The classes constructor.
-     * 
-     * @param repairOrderRegistry The programs RepairOrderRegistry.
+     * Creates an order manager that modifies and stores updated repair orders in the specified registry.
+     *
+     * @param repairOrderRegistry The registry used to store and update repair orders.
      */
     public OrderManager(RepairOrderRegistry repairOrderRegistry) {
         this.repairOrderRegistry = repairOrderRegistry;
@@ -32,12 +32,13 @@ public class OrderManager {
 
     }
     /**
-     * Adds diagnostic report to a repair order
+     * Creates an updated copy of the specified repair order with the given diagnostic report,
+     * stores it in the repair order registry, and returns the updated order.
+     *
+     * @param repairOrder The repair order to update.
+     * @param diagReport The diagnostic report to add.
      * 
-     * @param repairOrder The repair order that is getting a diagnostic report.
-     * @param diagReport The diagnostic report.
-     * 
-     * @return Returns the updated repair order.
+     * @return The updated repair order.
      */
     public RepairOrder addDiagnosticReport(RepairOrder repairOrder, String diagReport) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
@@ -46,14 +47,15 @@ public class OrderManager {
     } 
 
     /**
-     * Creates a repair task and adds it to the repair order.
-     * 
-     * @param repairOrder The repair order that is going to have the repair task.
-     * @param name The names of the repair task.
-     * @param taskDesc The description of the repair task.
+     * Creates a repair task, adds it to an updated copy of the specified repair order,
+     * stores the updated order in the registry, and returns it.
+     *
+     * @param repairOrder The repair order to add the task to.
+     * @param name The name of the repair task.
+     * @param taskDesc A description of the repair task.
      * @param cost The cost of the repair task.
      * 
-     * @return Returns the updated repair order.
+     * @return The updated repair order.
      */
     public RepairOrder createRepairTask(RepairOrder repairOrder, String name, String taskDesc, double cost) {
         RepairTaskDTO repairTask = new RepairTaskDTO(name, taskDesc, cost);
@@ -63,11 +65,12 @@ public class OrderManager {
     }
 
     /**
-     * Accepts the repair order.
+     * Creates an updated copy of the specified repair order, marks it as accepted,
+     * stores it in the registry, and returns it.
+     *
+     * @param repairOrder The repair order to accept.
      * 
-     * @param repairOrder The repair order to be accepted.
-     * 
-     * @return Returns the updated repair order.
+     * @return The updated repair order.
      */
     public RepairOrder acceptRepairOrder(RepairOrder repairOrder) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
@@ -76,11 +79,11 @@ public class OrderManager {
     }
 
     /**
-     * Rejects the repair order.
-     * 
-     * @param repairOrder The repair order to be rejected.
-     * 
-     * @return Returns the updated repair order.
+     * Creates an updated copy of the specified repair order, marks it as rejected,
+     * stores it in the registry, and returns it.
+     *
+     * @param repairOrder The repair order to reject.
+     * @return The updated repair order.
      */
     public RepairOrder rejectRepairOrder(RepairOrder repairOrder) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);

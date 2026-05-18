@@ -6,22 +6,22 @@ import se.kth.iv1350.sem3.model.RepairOrder;
 import se.kth.iv1350.sem3.model.RepairTaskDTO;
 
 /**
- * The programs view class.
+ * Represents the user interface and runs a sample repair order scenario.
  */
 public class View {
     private Controller contr;
 
     /**
-     * Creates a view.
-     * 
-     * @param contr This is the programs controller.
+     * Creates a view that uses the specified controller.
+     *
+     * @param contr The controller used to perform system operations.
      */
     public View(Controller contr) {
         this.contr = contr;
     }
 
     /**
-     * Starts the program by running a sample repair order scenario.
+     * Starts the user interface by running a sample repair order scenario.
      */
     public void start() {
         BikeDTO bike = new BikeDTO("Lexus", "Tiger", "55");
@@ -62,7 +62,7 @@ public class View {
 
         System.out.println("The receipt: \n");
 
-        contr.getReceipt(rep);
+        contr.printReceipt(rep);
         
     }
 
@@ -95,7 +95,7 @@ public class View {
         for (RepairTaskDTO currentRepairTaskDTO : repairOrder.getListOfTasks()) {
             tasks += "Repair Task name: " + currentRepairTaskDTO.getName() + "\n" +
                      "Repair Task description: " + currentRepairTaskDTO.getDesc() + "\n" +
-                     "Repair Task cost: " + currentRepairTaskDTO.getCost() + "\n" + "\n";
+                     "Repair Task cost: " + currentRepairTaskDTO.getCost() + " dollars" + "\n" + "\n";
         }
         return tasks;
     }

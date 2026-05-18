@@ -1,7 +1,7 @@
 package se.kth.iv1350.sem3.model;
 
 /**
- * A class for RepairTask data type.
+ * Contains information about a repair task.
  */
 public class RepairTaskDTO {
     private String name;

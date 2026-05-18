@@ -1,7 +1,7 @@
 package se.kth.iv1350.sem3.model;
 
 /**
- * A class for Customer data type.
+ * Contains customer information transferred between layers.
  */
 public class CustomerDTO {
     private String name;
@@ -22,6 +22,13 @@ public class CustomerDTO {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.bike = bike;
+    }
+
+    public CustomerDTO(CustomerDTO oldCustomer) {
+        this.name = oldCustomer.getName();
+        this.email = oldCustomer.getEmail();
+        this.phoneNumber = oldCustomer.getPhoneNumber();
+        this.bike = new BikeDTO(oldCustomer.getBike());
     }
 
     /**
