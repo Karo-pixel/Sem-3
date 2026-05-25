@@ -51,7 +51,7 @@ public class OrderManagerTest {
         CustomerDTO actual = repairOrder.getCustomer();
         CustomerDTO expected = customer;
 
-        assertNotSame(expected, actual, "Both customers have the same reference.");
+        assertNotSame(expected, actual, "Expected a copy of the customer, not the original customer object.");
     
         assertEquals(expected.getName(), actual.getName(), "Wrong customer name.");
         assertEquals(expected.getEmail(), actual.getEmail(), "Wrong customer email.");

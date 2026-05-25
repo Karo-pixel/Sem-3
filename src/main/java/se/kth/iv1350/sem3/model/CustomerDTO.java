@@ -21,7 +21,7 @@ public class CustomerDTO {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.bike = bike;
+        this.bike = new BikeDTO(bike);
     }
 
     /**

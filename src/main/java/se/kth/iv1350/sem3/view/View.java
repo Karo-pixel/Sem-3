@@ -43,7 +43,7 @@ public class View {
 
         System.out.println("The repair order after a diagnostic report is added: \n");
 
-        rep = contr.addDiagnosticReport(rep, "The brakes and wheels need to be changed.");
+        rep = contr.addDiagnosticReport(rep, "The brakes, wheels and chassi need to be changed.");
         System.out.println(getRepairOrder(rep));
 
 

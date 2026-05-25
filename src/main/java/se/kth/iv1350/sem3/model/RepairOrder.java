@@ -49,7 +49,7 @@ public class RepairOrder {
      * @return Returns the customer.
      */
     public CustomerDTO getCustomer() {
-        return this.customer;
+        return new CustomerDTO(this.customer);
     }
 
     /**

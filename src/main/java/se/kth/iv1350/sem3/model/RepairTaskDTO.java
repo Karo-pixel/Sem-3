@@ -21,6 +21,11 @@ public class RepairTaskDTO {
         this.cost = cost;
     }
 
+    /**
+     * Creates a copy of an existing repair task.
+     *
+     * @param oldTask The repair task to copy.
+     */
     public RepairTaskDTO(RepairTaskDTO oldTask) {
         this.name = oldTask.getName();
         this.desc = oldTask.getDesc();

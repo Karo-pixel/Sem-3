@@ -9,8 +9,8 @@ public class BikeDTO {
     private final String bikeSerialNo;
 
     /**
-     * The Bike classes constructor.
-     * 
+     * Creates a bike with the specified brand, model, and serial number.
+     *
      * @param bikeBrand The bikes brand.
      * @param bikeModel The bikes model.
      * @param bikeSerialNo The bikes serial number.
