@@ -75,7 +75,7 @@ public class RepairOrder {
      *
      * @param diagReport The diagnostic report.
      */
-    public void setDiagnosticReport(String diagReport) {
+    void setDiagnosticReport(String diagReport) {
         this.diagReport = diagReport;
     }
 
@@ -93,7 +93,7 @@ public class RepairOrder {
      *
      * @param newState {@code true} if the order is accepted, {@code false} if it is rejected.
      */
-    public void setState(boolean newState) {
+    void setState(boolean newState) {
         this.state = newState;
     }
 
@@ -111,7 +111,7 @@ public class RepairOrder {
      * 
      * @param repairTask The repair task to be added.
      */
-    public void addRepairTask(RepairTaskDTO repairTask) {
+    void addRepairTask(RepairTaskDTO repairTask) {
         listOfTasks.add(repairTask);
     }
 

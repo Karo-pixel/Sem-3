@@ -58,9 +58,12 @@ public class View {
         System.out.println("The repair order after it is accepted: \n");
 
         rep = contr.acceptRepairOrder(rep);
+
         System.out.println(getRepairOrder(rep));
 
         System.out.println("The receipt: \n");
+
+        
 
         contr.printReceipt(rep);
         
