@@ -9,7 +9,7 @@ public class RepairTaskDTO {
     private final double cost;
 
     /**
-     * The classes constructor.
+     * Creates a repair task with the specified name, description, and cost.
      * 
      * @param name The RepairTasks name.
      * @param desc The RepairTasks description.
