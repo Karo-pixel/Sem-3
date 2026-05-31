@@ -52,7 +52,7 @@ public class RepairOrderRegistry {
     public RepairOrder updateRepairOrder(RepairOrder oldRepairOrder, RepairOrder newRepairOrder) {
         for (int i = 0; i < listOfRepairOrders.size(); i++) {
             if (listOfRepairOrders.get(i).getCustomer().getPhoneNumber().equals(oldRepairOrder.getCustomer().getPhoneNumber())) {
-                listOfRepairOrders.set(i, new RepairOrder(newRepairOrder));
+                listOfRepairOrders.set(i, newRepairOrder);
                 return new RepairOrder(newRepairOrder);
             }
         }
