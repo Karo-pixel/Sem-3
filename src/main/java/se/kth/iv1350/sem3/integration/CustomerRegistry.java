@@ -30,13 +30,13 @@ public class CustomerRegistry {
      * @param phoneNumber The phone number of the customer to find.
      * @return The matching customer, or {@code null} if no customer is found.
      */
-    public CustomerDTO findCustomer(String phoneNumber) {
+    public CustomerDTO findCustomer(String phoneNumber) throws CustomerNotFoundException {
         for (CustomerDTO currentCustomer : listOfCustomers) {
             if (currentCustomer.getPhoneNumber().equals(phoneNumber)) {
                 return new CustomerDTO(currentCustomer);
             }
         }
-        return null;
+        return new CustomerNotFoundException(phoneNumber);
 
     }
 
