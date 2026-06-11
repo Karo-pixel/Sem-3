@@ -1,4 +1,7 @@
 package se.kth.iv1350.sem3.model;
+import java.util.ArrayList;
+import java.util.List;
+
 import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
 
 /**
@@ -6,6 +9,7 @@ import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
  */
 public class OrderManager {
     private RepairOrderRegistry repairOrderRegistry;
+    private List<RepairOrderObserver> repairOrderObservers = new ArrayList<>();
 
     /**
      * Creates an order manager that modifies and stores updated repair orders in the specified registry.
@@ -43,6 +47,7 @@ public class OrderManager {
     public RepairOrder addDiagnosticReport(RepairOrder repairOrder, String diagReport) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
         newRepairOrder.setDiagnosticReport(diagReport);
+        notifyRepairOrderObservers(newRepairOrder);
         return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
     } 
 
@@ -61,6 +66,7 @@ public class OrderManager {
         RepairTaskDTO repairTask = new RepairTaskDTO(name, taskDesc, cost);
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
         newRepairOrder.addRepairTask(repairTask);
+        notifyRepairOrderObservers(newRepairOrder);
         return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
     }
 
@@ -75,6 +81,7 @@ public class OrderManager {
     public RepairOrder acceptRepairOrder(RepairOrder repairOrder) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
         newRepairOrder.setState(true);
+        notifyRepairOrderObservers(newRepairOrder);
         return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
     }
 
@@ -88,7 +95,27 @@ public class OrderManager {
     public RepairOrder rejectRepairOrder(RepairOrder repairOrder) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
         newRepairOrder.setState(false);
+        notifyRepairOrderObservers(newRepairOrder);
         return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
     }
 
+    /**
+     * Adds an observer that will be notified when a repair order is updated.
+     *
+     * @param observer The observer to add.
+     */
+    public void addRepairOrderObserver(RepairOrderObserver observer) {
+        repairOrderObservers.add(observer);
+    }
+
+    /**
+     * Notifies all observers that a repair order has been updated.
+     *
+     * @param repairOrder The updated repair order.
+     */
+    private void notifyRepairOrderObservers(RepairOrder repairOrder) {
+        for (RepairOrderObserver observer : repairOrderObservers) {
+            observer.repairOrderUpdated(repairOrder);
+        }
+    }
 }

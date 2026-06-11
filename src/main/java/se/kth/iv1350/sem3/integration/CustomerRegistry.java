@@ -28,16 +28,22 @@ public class CustomerRegistry {
      * Searches for a customer by phone number.
      *
      * @param phoneNumber The phone number of the customer to find.
-     * @return The matching customer, or {@code null} if no customer is found.
+     * @return The matching customer.
+     * @throws CustomerNotFoundException If no customer with the specified phone number is found.
+     * @throws DatabaseFailureException If the database can not be called.
      */
     public CustomerDTO findCustomer(String phoneNumber) throws CustomerNotFoundException {
+        if (phoneNumber.equals("000")) {
+            throw new DatabaseFailureException("Could not call the customer database.");
+        }
+
         for (CustomerDTO currentCustomer : listOfCustomers) {
             if (currentCustomer.getPhoneNumber().equals(phoneNumber)) {
                 return new CustomerDTO(currentCustomer);
             }
         }
-        return new CustomerNotFoundException(phoneNumber);
 
+        throw new CustomerNotFoundException(phoneNumber);
     }
 
 }

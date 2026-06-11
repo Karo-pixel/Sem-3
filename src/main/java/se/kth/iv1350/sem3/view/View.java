@@ -4,12 +4,17 @@ import se.kth.iv1350.sem3.model.BikeDTO;
 import se.kth.iv1350.sem3.model.CustomerDTO;
 import se.kth.iv1350.sem3.model.RepairOrder;
 import se.kth.iv1350.sem3.model.RepairTaskDTO;
+import se.kth.iv1350.sem3.integration.CustomerNotFoundException;
+import se.kth.iv1350.sem3.integration.DatabaseFailureException;
+import se.kth.iv1350.sem3.log.FileLogger;
+import se.kth.iv1350.sem3.log.RepairOrderLogger;
 
 /**
  * Represents the user interface and runs a sample repair order scenario.
  */
 public class View {
     private Controller contr;
+    private FileLogger logger = new FileLogger();
 
     /**
      * Creates a view that uses the specified controller.
@@ -18,6 +23,8 @@ public class View {
      */
     public View(Controller contr) {
         this.contr = contr;
+        contr.addRepairOrderObserver(new RepairOrderView());
+        contr.addRepairOrderObserver(new RepairOrderLogger());
     }
 
     /**
@@ -31,42 +38,19 @@ public class View {
 
         System.out.println("Customer is found through their phone number, details are printed: \n");
 
-        CustomerDTO found = contr.findCustomer("0704345829");
-        System.out.println(getCustomerDTO(found));
-        System.out.println(getBikeDTO(found.getBike()));
+        try {
+            CustomerDTO found = contr.findCustomer("0704345829");
+            System.out.println(getCustomerDTO(found)); 
+        } catch (CustomerNotFoundException e) {
+            System.out.println("Customer could not be found \n" + e);
+        } catch (DatabaseFailureException e) {
+            System.out.println("The system could not find the customer at the moment. Please try again later.");
+            logger.logException(e);
+        }
 
-        System.out.println("A repair order is created and printed: \n");
+        RepairOrder repOrder = contr.createRepairOrder(newCustomer, "06/23", "My bike does not move.");
+        repOrder = contr.addDiagnosticReport(repOrder, "The wheels and brakes need to be changed");
 
-        RepairOrder rep = contr.createRepairOrder(found, "2026-04-10", "The brakes don't work.");
-        System.out.println(getRepairOrder(rep));
-
-
-        System.out.println("The repair order after a diagnostic report is added: \n");
-
-        rep = contr.addDiagnosticReport(rep, "The brakes, wheels and chassi need to be changed.");
-        System.out.println(getRepairOrder(rep));
-
-
-        System.out.println("The repair order after repair tasks are added: \n");
-
-        rep = contr.createRepairTask(rep, "Wheels", "Wheels are too old.", 70);
-        rep = contr.createRepairTask(rep, "Brakes", "Brakes are damaged", 20);
-        rep = contr.createRepairTask(rep, "Chassi", "The chassi is rusted", 110);
-        System.out.println(getRepairTaskDTO(rep));
-        System.out.println(getRepairOrder(rep));
-
-        System.out.println("The repair order after it is accepted: \n");
-
-        rep = contr.acceptRepairOrder(rep);
-
-        System.out.println(getRepairOrder(rep));
-
-        System.out.println("The receipt: \n");
-
-        
-
-        contr.printReceipt(rep);
-        
     }
 
     private String getBikeDTO(BikeDTO bike) {

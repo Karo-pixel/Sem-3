@@ -44,7 +44,7 @@ public class CustomerRegistryTest {
      * Tests that finding an existing customer returns the added customer.
      */
     @Test
-    public void testFindExistingCustomerReturnsAddedCustomer() {
+    public void testFindExistingCustomerReturnsAddedCustomer() throws CustomerNotFoundException {
         registry.addCustomer(customer);
 
         CustomerDTO actual = registry.findCustomer("0704345829");
@@ -58,7 +58,7 @@ public class CustomerRegistryTest {
      * Tests that finding a missing customer returns null.
      */
     @Test
-    public void testFindMissingCustomerReturnsNull() {
+    public void testFindMissingCustomerReturnsNull() throws CustomerNotFoundException {
         CustomerDTO actual = registry.findCustomer("0000000000");
 
         assertNull(actual, "Expected missing customer search to return null.");
@@ -68,7 +68,7 @@ public class CustomerRegistryTest {
      * Test to see if customer registry returns a copy of the customer and not the actual object.
      */
     @Test
-    public void testFindCustomerReturnsCopy() {
+    public void testFindCustomerReturnsCopy() throws CustomerNotFoundException {
         registry.addCustomer(customer);
 
         CustomerDTO actual = registry.findCustomer(customer.getPhoneNumber());
@@ -80,7 +80,7 @@ public class CustomerRegistryTest {
      * Test to see if customer registry has stored the customer by deep copying its information such as its bike.
      */
     @Test
-    public void testFindCustomerReturnsCustomerWithCopiedBike() {
+    public void testFindCustomerReturnsCustomerWithCopiedBike() throws CustomerNotFoundException {
         registry.addCustomer(customer);
 
         CustomerDTO actual = registry.findCustomer(customer.getPhoneNumber());

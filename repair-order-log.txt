@@ -1,0 +1,10 @@
+Repair order was updated:
+-------------Repair Order--------------
+Customers name: Karo
+Date: 06/23
+Problem description: My bike does not move.
+Diagnostic report: The wheels and brakes need to be changed
+The state of the order: false
+Total cost of the repair order: 0.0 dollars.
+
+
