@@ -4,7 +4,9 @@ import se.kth.iv1350.sem3.integration.Printer;
 import se.kth.iv1350.sem3.control.Controller;
 import se.kth.iv1350.sem3.integration.CustomerRegistry;
 import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
+import se.kth.iv1350.sem3.log.RepairOrderLogger;
 import se.kth.iv1350.sem3.model.OrderManager;
+import se.kth.iv1350.sem3.view.RepairOrderView;
 import se.kth.iv1350.sem3.view.View;
 
 /**
@@ -24,6 +26,9 @@ public class Main {
         OrderManager manager = new OrderManager(repairOrderRegistry);
 
         Controller contr = new Controller(manager, customerRegistry, repairOrderRegistry, printer);
+
+        manager.addRepairOrderObserver(new RepairOrderView());
+        manager.addRepairOrderObserver(new RepairOrderLogger());
 
         View view = new View(contr);
         view.start();

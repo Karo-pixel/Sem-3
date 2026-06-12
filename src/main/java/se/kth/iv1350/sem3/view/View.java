@@ -7,7 +7,6 @@ import se.kth.iv1350.sem3.model.RepairTaskDTO;
 import se.kth.iv1350.sem3.integration.CustomerNotFoundException;
 import se.kth.iv1350.sem3.integration.DatabaseFailureException;
 import se.kth.iv1350.sem3.log.FileLogger;
-import se.kth.iv1350.sem3.log.RepairOrderLogger;
 
 /**
  * Represents the user interface and runs a sample repair order scenario.
@@ -23,8 +22,6 @@ public class View {
      */
     public View(Controller contr) {
         this.contr = contr;
-        contr.addRepairOrderObserver(new RepairOrderView());
-        contr.addRepairOrderObserver(new RepairOrderLogger());
     }
 
     /**
@@ -39,7 +36,7 @@ public class View {
         System.out.println("Customer is searched for by their phone number, details are printed if the customer is found: \n");
 
         try {
-            found = contr.findCustomer("000");
+            found = contr.findCustomer("0704345829");
             System.out.println(getCustomerDTO(found)); 
             System.out.println(getBikeDTO(bike));
         } catch (CustomerNotFoundException e) {

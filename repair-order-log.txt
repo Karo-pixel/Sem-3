@@ -1,0 +1,75 @@
+Repair order was updated:
+-------------Repair Order--------------
+Customers name: Karo
+Date: 06/23
+Problem description: My bike does not move.
+Diagnostic report: null
+The state of the order: false
+Total cost of the repair order: 0.0 dollars.
+
+
+
+Repair order was updated:
+-------------Repair Order--------------
+Customers name: Karo
+Date: 06/23
+Problem description: My bike does not move.
+Diagnostic report: The wheels and brakes need to be changed
+The state of the order: false
+Total cost of the repair order: 0.0 dollars.
+
+
+
+Repair order was updated:
+-------------Repair Order--------------
+Customers name: Karo
+Date: 06/23
+Problem description: My bike does not move.
+Diagnostic report: The wheels and brakes need to be changed
+The state of the order: false
+Total cost of the repair order: 100.0 dollars.
+
+Repair Task name: Wheels
+Repair Task description: Wheels are damaged, need replacing.
+Repair Task cost: 100.0 dollars
+
+
+
+Repair order was updated:
+-------------Repair Order--------------
+Customers name: Karo
+Date: 06/23
+Problem description: My bike does not move.
+Diagnostic report: The wheels and brakes need to be changed
+The state of the order: false
+Total cost of the repair order: 399.0 dollars.
+
+Repair Task name: Wheels
+Repair Task description: Wheels are damaged, need replacing.
+Repair Task cost: 100.0 dollars
+
+Repair Task name: Brakes
+Repair Task description: Bike needs new brakes.
+Repair Task cost: 299.0 dollars
+
+
+
+Repair order was updated:
+-------------Repair Order--------------
+Customers name: Karo
+Date: 06/23
+Problem description: My bike does not move.
+Diagnostic report: The wheels and brakes need to be changed
+The state of the order: true
+Total cost of the repair order: 399.0 dollars.
+
+Repair Task name: Wheels
+Repair Task description: Wheels are damaged, need replacing.
+Repair Task cost: 100.0 dollars
+
+Repair Task name: Brakes
+Repair Task description: Bike needs new brakes.
+Repair Task cost: 299.0 dollars
+
+
+

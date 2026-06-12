@@ -1,6 +1,0 @@
-Exception was thrown: Could not call the customer database.
-se.kth.iv1350.sem3.integration.DatabaseFailureException: Could not call the customer database.
-	at se.kth.iv1350.sem3.integration.CustomerRegistry.findCustomer(CustomerRegistry.java:37)
-	at se.kth.iv1350.sem3.control.Controller.findCustomer(Controller.java:53)
-	at se.kth.iv1350.sem3.view.View.start(View.java:42)
-	at se.kth.iv1350.sem3.startup.Main.main(Main.java:29)

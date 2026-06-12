@@ -5,7 +5,6 @@ import se.kth.iv1350.sem3.integration.RepairOrderRegistry;
 import se.kth.iv1350.sem3.model.CustomerDTO;
 import se.kth.iv1350.sem3.model.OrderManager;
 import se.kth.iv1350.sem3.model.RepairOrder;
-import se.kth.iv1350.sem3.model.RepairOrderObserver;
 import se.kth.iv1350.sem3.integration.CustomerNotFoundException;
 
 /**
@@ -47,7 +46,7 @@ public class Controller {
      * @param phoneNumber The customer's phone number.
      * @return The matching customer.
      * @throws CustomerNotFoundException If no customer with the specified phone number is found.
-     * @throws DatabaseFailureE If the customer registry can not be accessed.
+     * @throws DatabaseFailuree If the customer registry can not be accessed.
      */
     public CustomerDTO findCustomer(String phoneNumber) throws CustomerNotFoundException {
         return customerRegistry.findCustomer(phoneNumber);
@@ -133,12 +132,4 @@ public class Controller {
         printer.printReceipt(repairOrder);
     }
 
-    /**
-     * Adds an observer that will be notified when a repair order is updated.
-     *
-     * @param observer The observer to add.
-     */
-    public void addRepairOrderObserver(RepairOrderObserver observer) {
-        manager.addRepairOrderObserver(observer);
-    }
 }
