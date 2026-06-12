@@ -39,7 +39,7 @@ public class View {
         System.out.println("Customer is searched for by their phone number, details are printed if the customer is found: \n");
 
         try {
-            found = contr.findCustomer("0704345829");
+            found = contr.findCustomer("000");
             System.out.println(getCustomerDTO(found)); 
             System.out.println(getBikeDTO(bike));
         } catch (CustomerNotFoundException e) {

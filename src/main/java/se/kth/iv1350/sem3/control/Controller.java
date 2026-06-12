@@ -47,6 +47,7 @@ public class Controller {
      * @param phoneNumber The customer's phone number.
      * @return The matching customer.
      * @throws CustomerNotFoundException If no customer with the specified phone number is found.
+     * @throws DatabaseFailureE If the customer registry can not be accessed.
      */
     public CustomerDTO findCustomer(String phoneNumber) throws CustomerNotFoundException {
         return customerRegistry.findCustomer(phoneNumber);
