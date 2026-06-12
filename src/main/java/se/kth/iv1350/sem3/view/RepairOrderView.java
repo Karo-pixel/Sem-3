@@ -2,6 +2,7 @@ package se.kth.iv1350.sem3.view;
 
 import se.kth.iv1350.sem3.model.RepairOrder;
 import se.kth.iv1350.sem3.model.RepairOrderObserver;
+import se.kth.iv1350.sem3.model.RepairTaskDTO;
 
 /**
  * Shows updated repair orders in the user interface.
@@ -14,8 +15,9 @@ public class RepairOrderView implements RepairOrderObserver {
      */
     @Override
     public void repairOrderUpdated(RepairOrder repairOrder) {
-        System.out.println("Repair order was updated:");
+        System.out.println("(For technician) Repair order was updated:");
         System.out.println(getRepairOrder(repairOrder));
+        System.out.println(getRepairTaskDTO(repairOrder));
     }
 
     private String getRepairOrder(RepairOrder repairOrder) {
@@ -27,4 +29,14 @@ public class RepairOrderView implements RepairOrderObserver {
                "The state of the order: " + repairOrder.getState() + "\n" +
                "Total cost of the repair order: " + repairOrder.getTotalCost() + " dollars." + "\n";
     } 
+
+    private String getRepairTaskDTO(RepairOrder repairOrder) {
+        String tasks = "";
+        for (RepairTaskDTO currentRepairTaskDTO : repairOrder.getListOfTasks()) {
+            tasks += "Repair Task name: " + currentRepairTaskDTO.getName() + "\n" +
+                     "Repair Task description: " + currentRepairTaskDTO.getDesc() + "\n" +
+                     "Repair Task cost: " + currentRepairTaskDTO.getCost() + " dollars" + "\n" + "\n";
+        }
+        return tasks;
+    }
 }

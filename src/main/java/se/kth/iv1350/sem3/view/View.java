@@ -33,23 +33,48 @@ public class View {
     public void start() {
         BikeDTO bike = new BikeDTO("Lexus", "Tiger", "55");
         CustomerDTO newCustomer = new CustomerDTO("Karo", "karosh@kth.se", "0704345829", bike);
-
         contr.addCustomer(newCustomer);
+        CustomerDTO found = null;
 
-        System.out.println("Customer is found through their phone number, details are printed: \n");
+        System.out.println("Customer is searched for by their phone number, details are printed if the customer is found: \n");
 
         try {
-            CustomerDTO found = contr.findCustomer("0704345829");
+            found = contr.findCustomer("0704345829");
             System.out.println(getCustomerDTO(found)); 
+            System.out.println(getBikeDTO(bike));
         } catch (CustomerNotFoundException e) {
-            System.out.println("Customer could not be found \n" + e);
+            System.out.println("Customer could not be found because: " + e.getMessage());
+            return;
         } catch (DatabaseFailureException e) {
             System.out.println("The system could not find the customer at the moment. Please try again later.");
             logger.logException(e);
+            return;
         }
 
-        RepairOrder repOrder = contr.createRepairOrder(newCustomer, "06/23", "My bike does not move.");
+        System.out.println("A repair order is created for the customer: \n");
+
+        RepairOrder repOrder = contr.createRepairOrder(found, "06/23", "My bike does not move.");
+        System.out.println(getRepairOrder(repOrder));
+
+        System.out.println("A diagnostic report is added to the repair order:\n");
+
         repOrder = contr.addDiagnosticReport(repOrder, "The wheels and brakes need to be changed");
+        System.out.println(getRepairOrder(repOrder));
+
+        System.out.println("Two repair tasks are added to the repair order: \n");
+
+        repOrder = contr.createRepairTask(repOrder, "Wheels", "Wheels are damaged, need replacing.", 100);
+        repOrder = contr.createRepairTask(repOrder, "Brakes", "Bike needs new brakes.", 299);
+        System.out.println(getRepairTaskDTO(repOrder));
+
+        System.out.println("The repair order after it is accepted:\n");
+
+        repOrder = contr.acceptRepairOrder(repOrder);
+        System.out.println(getRepairOrder(repOrder));
+
+        System.out.println("The receipt:\n");
+
+        contr.printReceipt(repOrder);
 
     }
 

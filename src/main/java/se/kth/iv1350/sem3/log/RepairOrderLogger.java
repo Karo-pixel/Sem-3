@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import se.kth.iv1350.sem3.model.RepairOrder;
 import se.kth.iv1350.sem3.model.RepairOrderObserver;
+import se.kth.iv1350.sem3.model.RepairTaskDTO;
 
 /**
  * Logs updated repair orders to a file.
@@ -33,6 +34,7 @@ public class RepairOrderLogger implements RepairOrderObserver {
         if (logFile != null) {
             logFile.println("Repair order was updated:");
             logFile.println(getRepairOrder(repairOrder));
+            logFile.println(getRepairTaskDTO(repairOrder));
             logFile.println();
         }
     }
@@ -46,4 +48,14 @@ public class RepairOrderLogger implements RepairOrderObserver {
                "The state of the order: " + repairOrder.getState() + "\n" +
                "Total cost of the repair order: " + repairOrder.getTotalCost() + " dollars." + "\n";
     } 
+
+    private String getRepairTaskDTO(RepairOrder repairOrder) {
+        String tasks = "";
+        for (RepairTaskDTO currentRepairTaskDTO : repairOrder.getListOfTasks()) {
+            tasks += "Repair Task name: " + currentRepairTaskDTO.getName() + "\n" +
+                     "Repair Task description: " + currentRepairTaskDTO.getDesc() + "\n" +
+                     "Repair Task cost: " + currentRepairTaskDTO.getCost() + " dollars" + "\n" + "\n";
+        }
+        return tasks;
+    }
 }

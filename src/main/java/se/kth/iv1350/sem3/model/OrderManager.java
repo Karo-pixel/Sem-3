@@ -32,12 +32,13 @@ public class OrderManager {
     public RepairOrder createRepairOrder(CustomerDTO customer, String date, String problemDesc) {
         RepairOrder newRepairOrder = new RepairOrder(customer, date, problemDesc);
         repairOrderRegistry.addRepairOrder(newRepairOrder);
+        notifyRepairOrderObservers(newRepairOrder);
         return newRepairOrder;
 
     }
     /**
      * Creates an updated copy of the specified repair order with the given diagnostic report,
-     * stores it in the repair order registry, and returns the updated order.
+     * stores it in the repair order registry, notifies the observers and returns the updated order.
      *
      * @param repairOrder The repair order to update.
      * @param diagReport The diagnostic report to add.
@@ -47,13 +48,12 @@ public class OrderManager {
     public RepairOrder addDiagnosticReport(RepairOrder repairOrder, String diagReport) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
         newRepairOrder.setDiagnosticReport(diagReport);
-        notifyRepairOrderObservers(newRepairOrder);
-        return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
+        return updateRepairOrderAndNotifyObservers(repairOrder, newRepairOrder);
     } 
 
     /**
      * Creates a repair task, adds it to an updated copy of the specified repair order,
-     * stores the updated order in the registry, and returns it.
+     * stores the updated order in the registry, notifies the observers and returns it.
      *
      * @param repairOrder The repair order to add the task to.
      * @param name The name of the repair task.
@@ -66,13 +66,12 @@ public class OrderManager {
         RepairTaskDTO repairTask = new RepairTaskDTO(name, taskDesc, cost);
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
         newRepairOrder.addRepairTask(repairTask);
-        notifyRepairOrderObservers(newRepairOrder);
-        return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
+        return updateRepairOrderAndNotifyObservers(repairOrder, newRepairOrder);
     }
 
     /**
      * Creates an updated copy of the specified repair order, marks it as accepted,
-     * stores it in the registry, and returns it.
+     * stores it in the registry, notifies the observers and returns it.
      *
      * @param repairOrder The repair order to accept.
      * 
@@ -81,13 +80,12 @@ public class OrderManager {
     public RepairOrder acceptRepairOrder(RepairOrder repairOrder) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
         newRepairOrder.setState(true);
-        notifyRepairOrderObservers(newRepairOrder);
-        return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
+        return updateRepairOrderAndNotifyObservers(repairOrder, newRepairOrder);
     }
 
     /**
      * Creates an updated copy of the specified repair order, marks it as rejected,
-     * stores it in the registry, and returns it.
+     * stores it in the registry, notifies the observers and returns it.
      *
      * @param repairOrder The repair order to reject.
      * @return The updated repair order.
@@ -95,8 +93,7 @@ public class OrderManager {
     public RepairOrder rejectRepairOrder(RepairOrder repairOrder) {
         RepairOrder newRepairOrder = new RepairOrder(repairOrder);
         newRepairOrder.setState(false);
-        notifyRepairOrderObservers(newRepairOrder);
-        return repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
+        return updateRepairOrderAndNotifyObservers(repairOrder, newRepairOrder);
     }
 
     /**
@@ -117,5 +114,18 @@ public class OrderManager {
         for (RepairOrderObserver observer : repairOrderObservers) {
             observer.repairOrderUpdated(repairOrder);
         }
+    }
+
+    /**
+     * Updates a repair order in the registry and notifies all observers.
+     *
+     * @param repairOrder The old repair order to replace.
+     * @param newRepairOrder The new updated repair order.
+     * @return The updated repair order.
+     */
+    private RepairOrder updateRepairOrderAndNotifyObservers(RepairOrder repairOrder, RepairOrder newRepairOrder) {
+        RepairOrder updatedRepairOrder = repairOrderRegistry.updateRepairOrder(repairOrder, newRepairOrder);
+        notifyRepairOrderObservers(updatedRepairOrder);
+        return updatedRepairOrder;
     }
 }

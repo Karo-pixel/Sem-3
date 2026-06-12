@@ -2,7 +2,7 @@ package se.kth.iv1350.sem3.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,13 +55,16 @@ public class CustomerRegistryTest {
     }
 
     /**
-     * Tests that finding a missing customer returns null.
+     * Tests that finding a missing customer throws CustomerNotFoundException.
      */
     @Test
-    public void testFindMissingCustomerReturnsNull() throws CustomerNotFoundException {
-        CustomerDTO actual = registry.findCustomer("0000000000");
-
-        assertNull(actual, "Expected missing customer search to return null.");
+    public void testFindMissingCustomerThrowsCustomerNotFoundException() {
+        try {
+            registry.findCustomer("0000000000");
+            fail("Expected CustomerNotFoundException to be thrown.");
+        } catch (CustomerNotFoundException e) {
+            assertEquals("No customer with phone number 0000000000 was found.", e.getMessage(), "Wrong exception message.");
+        }
     }
 
     /**
@@ -86,5 +89,20 @@ public class CustomerRegistryTest {
         CustomerDTO actual = registry.findCustomer(customer.getPhoneNumber());
 
         assertNotSame(customer.getBike(), actual.getBike(), "Expected returned customer to contain a copy of the bike.");
+    }
+
+    /**
+     * Tests that the hardcoded database failure phone number throws DatabaseFailureException.
+     */
+    @Test
+    public void testFindCustomerThrowsDatabaseFailureException() {
+        try {
+            registry.findCustomer("000");
+            fail("Expected DatabaseFailureException to be thrown.");
+        } catch (DatabaseFailureException e) {
+            assertEquals("Could not call the customer database.", e.getMessage(), "Wrong exception message.");
+        } catch (CustomerNotFoundException e) {
+            fail("Expected DatabaseFailureException, but CustomerNotFoundException was thrown.");
+        }
     }
 }
